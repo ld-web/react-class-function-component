@@ -1,68 +1,45 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Gestion d'état avec des composants classes ou fonctions
 
-## Available Scripts
+Historiquement, avec ReactJS, nous pouvons définir nos composants sous forme de classes ou sous forme de fonctions.
 
-In the project directory, you can run:
+La seule différence avant la version 16.8, c'est qu'il était impossible de gérer un état (state) dans un composant fonctionnel.
 
-### `yarn start`
+Depuis la version 16.8, sortie en Février 2019, il est possible de définir un composant sous forme de classe avec un état, avec l'introduction des [**Hooks**](https://reactjs.org/docs/hooks-intro.html).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+L'intérêt principal de cette fonctionnalité, pour notre gestion d'état, va être de pouvoir isoler les fonctions de gestion d'état dans notre composant.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Dans le projet, deux composants très simples sont définis : `ClassCounter` et `FunctionCounter`.
 
-### `yarn test`
+Le premier définit un composant avec un compteur, défini sous forme de classe.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Le second est identique mais défini sous forme de fonction.
 
-### `yarn build`
+## Composant classe
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Dans notre composant classe, notre état se situe dans un attribut `state` hérité de la classe `React.Component`.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Nous pouvons donc l'initialiser dans le constructeur, puis le mettre à jour dans d'autres méthodes, en conservant son immutabilité par l'utilisation de la méthode `setState`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Nous avons également accès aux méthodes du [cycle de vie d'un composant](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/), si nous voulons effectuer un appel à une API, etc...
 
-### `yarn eject`
+## Composant fonctionnel
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Dans le composant fonctionnel, nous utilisons le hook `useState` fourni par React.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Il s'agit d'une fonction qui va créer une variable d'état. Elle va nous retourner cette variable (ici nous l'avons appelée `counter`), ainsi qu'une fonction permettant de la mettre à jour (ici nous l'avons appelée `setCounter`). Tout ce qu'elle reçoit en argument est la valeur initiale de notre variable d'état (ici 0).
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Il s'agit tout simplement de l'équivalent `this.state.counter` et `this.setState`, à la différence près que dans un composant fonctionnel, nous ne sommes pas dans une définition de classe. Ici, nous ne pourrons donc pas manipuler une instance de classe avec `this`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+>On peut créer plusieurs variables d'état avec plusieurs appels à `useState`
 
-## Learn More
+Un composant fonctionnel n'a pas de méthode `render` comme dans un composant sous forme de classe. Pour afficher notre composant, nous n'avons qu'à utiliser `return` avec son contenu.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+On remarquera donc que dans le contenu retourné, nous pouvons utiliser notre méthode `setCounter` pour mettre à jour notre compteur.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Enfin, il est également possible d'utiliser le hook `useEffect` pour effectuer des traitements au changement d'une variable d'état.
 
-### Code Splitting
+Nous définissons la fonction à exécuter, et le moment où elle s'exécutera : le deuxième paramètre définit des "dépendances" : ici `counter`. Quand `counter` est mise à jour, la fonction s'exécute (nous ne faisons qu'un `console.log` donc ouvrez votre console).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+On pourra donc définir plusieurs appels à au hook `useEffect`, suivant les mises à jour de nos variables d'état, et même tout simplement pour lancer un traitement au montage de notre composant, à la manière de la méthode `componentDidMount` dans un composant classe.
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Plus d'infos sur `useEffect` [ici](https://reactjs.org/docs/hooks-effect.html).
