@@ -4,7 +4,7 @@ Historiquement, avec ReactJS, nous pouvons définir nos composants sous forme de
 
 La seule différence avant la version 16.8, c'est qu'il était impossible de gérer un état (state) dans un composant fonctionnel.
 
-Depuis la version 16.8, sortie en Février 2019, il est possible de définir un composant sous forme de classe avec un état, avec l'introduction des [**Hooks**](https://reactjs.org/docs/hooks-intro.html).
+Depuis la version 16.8, sortie en Février 2019, il est possible de définir un composant sous forme de fonction avec un état, avec l'introduction des [**Hooks**](https://reactjs.org/docs/hooks-intro.html).
 
 L'intérêt principal de cette fonctionnalité, pour notre gestion d'état, va être de pouvoir isoler les fonctions de gestion d'état dans notre composant.
 
