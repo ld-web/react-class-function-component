@@ -9,7 +9,7 @@ const FunctionCounter = () => {
 
   return (
     <div>
-        <h2>Compteur avec composant sous forme de classe :</h2>
+        <h2>Compteur avec composant sous forme de fonction :</h2>
         <p>Compteur : {counter}</p>
         <p>
           <input type="button" onClick={() => setCounter(counter + 1)} value="Incrémenter" style={{marginRight: '1em'}}/>
