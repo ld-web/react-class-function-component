@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class ClassCounter extends Component {
+  // Constructeur de la classe
+  // C'est ici que j'initialise mon state
+  // Si je n'ai pas de state dans mon composant
+  // Alors c'est inutile de réécrire mon constructeur
+  // Car j'hérite du constructeur parent
   constructor(props) {
     super(props);
 
@@ -9,6 +14,11 @@ class ClassCounter extends Component {
     };
   }
 
+  // Ajoute 1 à la variable d'état "counter"
+  // On passe par une constante "currentCounter"
+  // et on utilise la méthode setState pour garantir l'immutabilité du state
+  // setState, quand elle est exécutée, déclenche l'exécution de la méthode render
+  // Donc on peut bien avoir plusieurs renders lors du cycle de vie d'un composant
   increment = () => {
     const currentCounter = this.state.counter;
 
